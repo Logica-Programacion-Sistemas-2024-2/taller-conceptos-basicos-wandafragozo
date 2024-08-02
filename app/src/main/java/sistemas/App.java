@@ -3,213 +3,422 @@
  */
 package sistemas;
 
+import java.util.Scanner;
+
 public class App {
-    
+
+    public static void main(String[] args) {
+        // System.out.println(saludarUsuario("wanda"));
+        // System.out.println(convertirVelocidad(40));
+        // System.out.println(convertirCcALitros (1500));
+        // System.out.println(convertirATotalSegundos(1, 2, 3, 4));
+        // System.out.println(convertirDolaresAPesos(3, 4));
+        // System.out.println(convertirCelsiusAFahrenheit(32));
+        // System.out.println(calcularPesoNeto(43));
+        //System.out.println( App.calcularNotaNecesaria(0.2, 0.2, 0.2, 0.2, 0.2, 4, 4, 4, 4));
+        
+    }
+   
     // Diseñe un algoritmo para saludar al usuario: Hola usuario. El nombre del usuario es ingresado por teclado
     public static String saludarUsuario(String nombre) {
         try {
             // Lógica interna
+            return "Hola " + nombre;
         } catch (Exception e) {
             return "Error: " + e.getMessage();
         }
-        return "";
+        
     }
 
     // Diseñe un algoritmo que lea por teclado una velocidad en Km/seg y la convierta a metros/seg y a metros/hora
     // retorne el valor en formato string (metrosPorSeg + "|" + metrosPorHora)
     public static String convertirVelocidad(double kmPorSeg) {
+
+        int mtPorSeg;
+        int mtPorHora;
         try {
+            mtPorSeg = (int) (kmPorSeg * 1000);
+            mtPorHora = mtPorSeg * 3600;
+
+            return mtPorSeg + "|" + mtPorHora;
+
+            
+
             // Lógica interna
         } catch (Exception e) {
             return "0|0";
         }
-        return "";
+        
     }
 
     // Solicitar al usuario ingresar una cantidad expresada en cc (centímetros cúbicos) y devolver su cantidad en litros
     public static int convertirCcALitros(double cc) {
+        
+        int Cc;
+        int Litros;
         try {
+            Litros = (int)(cc / 1000);
+
+            return Litros;
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
+        
     }
 
     // Solicitar al usuario ingresar una cantidad en dólares y convertirla a pesos según la TRM del día
     public static int convertirDolaresAPesos(double dolares, double trm) {
+
+        int pesos;
+
         try {
+            pesos =  (int) (dolares * trm);
+
+            return pesos;
+            
+            
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
+        
+        
     }
 
     // Solicitar al usuario ingresar la temperatura en grados centígrados y convertirla en grados Fahrenheit (averiguar la fórmula) F = 32 + ( 9 * C / 5)
     public static int convertirCelsiusAFahrenheit(double celsius) {
+
+        Scanner sc = new Scanner(System.in);
+
+        celsius = sc.nextDouble();
+        int fahrenheit;
+        
         try {
+             fahrenheit = (int) (32 + (9.0 / 5.0 * celsius));
+
             // Lógica interna
+
         } catch (Exception e) {
             return -1;
         }
-        return 0;
+        return (int) fahrenheit;
     }
 
     // Solicitar al usuario ingresar Nro de Días nro de horas nro de minutos y nro segundos y convertir todo a segundos.
     public static int convertirATotalSegundos(int dias, int horas, int minutos, int segundos) {
+        int resultado = 0;
+
         try {
+
+           int diasSeg = dias * 24 * 60 * 60;
+           int horasSeg = horas * 60 * 60;
+           int minutosSeg = minutos * 60;
+           
+           resultado =  (int) (diasSeg + horasSeg + minutosSeg + segundos);
+
+           return resultado;
+
             // Lógica interna
+            
         } catch (Exception e) {
             return -1;
         }
-        return 0;
     }
 
     // Un usuario tiene un sistema de báscula para pesar camiones, dado el peso de un camión debe sacar el peso neto de la carga en kilos y toneladas
     // retorne el valor en formato string (pesoEnKg + "|" + pesoEnToneladas)
-    public static String calcularPesoNeto(double peso) {
+    public static String calcularPesoNeto(double peso){
+
+        double pesoEnToneladas;
+
         try {
-            // Lógica interna
+
+            pesoEnToneladas = peso /1000;
+            
+            return (int) pesoEnToneladas + "|" + 0;
+            
         } catch (Exception e) {
-            return "0|0";
+
+            return "error";
+
         }
-        return "";
     }
+            
+
+         
 
     // Diseñe un algoritmo que calcule el tiempo necesario para alcanzar un destino dado por el usuario quien además ingresará la velocidad promedio en kilómetros/hora y la distancia en kilómetros
     public static int calcularTiempoViaje(double distancia, double velocidadKilometros, double velocidadHora) {
+
         try {
+            if (velocidadKilometros == 0 ) {
+                throw new ArithmeticException("error");
+            }
+            double tiempo = (distancia / velocidadKilometros);
+            double tiempoNecesario = ( tiempo * velocidadHora);
+
+            return (int) tiempoNecesario;
+
+
             // Lógica interna
-        } catch (Exception e) {
+        } catch (ArithmeticException e) {
             return -1;
         }
-        return 0;
+        
     }
 
     // Un avión necesita cargar combustible para cubrir sus rutas programadas en el día. Cada 0.2 toneladas de combustible puede recorrer 60.8 Km en velocidad de crucero. En el despegue el avión consume 1.2 toneladas de combustible y en el aterrizaje consume 0.4 toneladas. El piloto desea un algoritmo que ingresando 4 rutas y el kilometraje de cada ruta obtenga la cantidad de combustible que debe tanquear en el avión.
     public static int calcularCombustible(double ruta1, double ruta2, double ruta3, double ruta4) {
+        double total_combustible = 0;
+
+        final double COMBUSTIBLE_POR_KM = (0.2 / 60.8);
+        final double GASTO_DESPEGUE = 1.2;
+        final double GASTO_ATERRIZAJE = 0.4;
+
+        
         try {
+
+            total_combustible += GASTO_DESPEGUE;
+            total_combustible += ruta1 * COMBUSTIBLE_POR_KM;
+            total_combustible += GASTO_ATERRIZAJE;
+
+            total_combustible += GASTO_DESPEGUE;
+            total_combustible += ruta2 *COMBUSTIBLE_POR_KM;
+            total_combustible += GASTO_ATERRIZAJE;
+
+            total_combustible += GASTO_DESPEGUE;
+            total_combustible += ruta3 *COMBUSTIBLE_POR_KM;
+            total_combustible += GASTO_ATERRIZAJE;
+
+            total_combustible += GASTO_DESPEGUE;
+            total_combustible += ruta4 *COMBUSTIBLE_POR_KM;
+            total_combustible += GASTO_ATERRIZAJE;
+
+            return (int)total_combustible;
+
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
+    
+        
     }
-
+    
     // Diseñar un algoritmo que calcule el peso neto en la luna de un peso terrestre ingresado por teclado. La gravedad de la Luna es de alrededor del 17% más que la de la tierra
     public static int calcularPesoLunar(double pesoTierra) {
+
+double peso_luna = 0;
+
+        
         try {
+
+            peso_luna = (pesoTierra* 17)/100 + pesoTierra;
+            return (int) peso_luna;
+
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
+        
     }
 
     // Diseñar un algoritmo que calcule el saldo que debe haber en una taquilla de un banco. El cajero deberá ingresar la base el total de recaudos y el total de retiros
     public static int calcularSaldoTaquilla(double base, double ingresos, double retiros) {
+
+        int saldo;
+
         try {
+
+            saldo= (int) (base + ingresos - retiros);
+
+            return saldo;
+
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
     }
 
     // Diseñe un algoritmo para calcular la propina en un restaurante(10%) el impuesto al consumo (8%) y el valor final que deberá pagar ingresando el valor de la comida.
     // retorne el valor en formato string (propina + "|" + impuesto + "|" + total)
     public static String calcularCuentaRestaurante(double costoComida) {
+
+      final double PROPINA = (0.1);
+      final double CONSUMO = (0.08);
+      double propina;
+      double consumo;
+      double total;
+
         try {
+
+            propina= (costoComida *PROPINA);
+            consumo = (costoComida * CONSUMO);
+            total = propina + consumo +costoComida;
+
+            return (int) propina + "|" + (int) consumo + "|" + (int)total ;
+        
+
             // Lógica interna
         } catch (Exception e) {
             return -1 + "|" + -1 + "|" + -1;
         }
-        return "";
+        
     }
 
     // Diseñar un algoritmo que obtenga los puntos finales de un equipo de fútbol (puntuación según lineamientos de Fifa) a partir de los datos ingresados por teclado: Número de partidos ganados número de partidos perdidos número de partidos empatados.
     public static int calcularPuntosFutbol(int ganados, int perdidos, int empatados) {
+
+
         try {
+
+            return (ganados * 3)+(empatados);
+
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
+        
     }
 
     // Elaborar un algoritmo que dadas todas las 5 notas y los 5 porcentajes para una materia calcule la nota final.
     public static int calcularNotaFinal(double nota1, double nota2, double nota3, double nota4, double nota5,
-                                        double porcentaje1, double porcentaje2, double porcentaje3, double porcentaje4, double porcentaje5) {
+                                   double porcentaje1, double porcentaje2, double porcentaje3, double porcentaje4, double porcentaje5) {
+
+        double totalNotas= 0 ;
+
         try {
+
+            totalNotas += nota1 * porcentaje1;
+            totalNotas += nota2 * porcentaje2;
+            totalNotas += nota3 * porcentaje3;
+            totalNotas += nota4 * porcentaje4;
+            totalNotas += nota5 * porcentaje5;
+
+            if (porcentaje1==0 || porcentaje2==0 || porcentaje3==0 || porcentaje4==0 || porcentaje5==0) {
+                
+                throw new Exception();
+            }
+
+
+            return (int) totalNotas;
+
+            
+
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
     }
 
     // Elaborar un algoritmo que dados los 5 porcentajes de una materia y las 4 primeras notas calcule cuánto tiene que sacar para ganar si el puntaje mínimo es 3.
     public static int calcularNotaNecesaria(double porcentaje1, double porcentaje2, double porcentaje3, double porcentaje4, double porcentaje5, double nota1, double nota2, double nota3, double nota4) {
+
+        double cuantoTengoQueSacarParaElFinal= 0;
+        double totalNotas = 0;
+
+
         try {
+            totalNotas += nota1 * porcentaje1;
+            totalNotas += nota2 * porcentaje2;
+            totalNotas += nota3 * porcentaje3;
+            totalNotas += nota4 * porcentaje4;
+
+            if (porcentaje1==0 || porcentaje2==0 || porcentaje3==0 || porcentaje4==0 || porcentaje5==0) {
+                
+                throw new Exception();
+            }
+
+            cuantoTengoQueSacarParaElFinal= (3-totalNotas)/porcentaje5;
+            if (cuantoTengoQueSacarParaElFinal <= 0) {
+                throw new Exception();
+            }
+            return (int)cuantoTengoQueSacarParaElFinal;
+
+
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
     }
 
     // Se requiere un algoritmo para calcular el salario a pagar a un trabajador con los siguientes datos ingresados por teclado: cantidad de horas normales laboradas cantidad de horas extras diurnas laboradas cantidad de horas extras nocturnas laboradas valor de la hora normal. El valor de las horas extras diurnas tienen un recargo adicional del 15% sobre la hora normal. El valor de las horas extras nocturnas tienen un recargo adicional del 35% sobre la hora normal.
     public static int calcularSalario(int horasNormales, int horasExtrasDiurnas, int horasExtrasNocturnas, double valorHoraNormal) {
+
+    double totalhoras = 0;
+
+
         try {
+
+            totalhoras += horasNormales *valorHoraNormal;
+            totalhoras += horasExtrasDiurnas * (valorHoraNormal +(valorHoraNormal * 0.15));
+            totalhoras += horasExtrasNocturnas * (valorHoraNormal + (valorHoraNormal * 0.35));
+
+            if (valorHoraNormal == 0) {
+
+                throw new Exception();
+                
+            }
+
+            return (int) totalhoras;
+
+
+
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
+        
     }
 
     // Diseñe un algoritmo que calcule el área de un triángulo rectángulo.
     public static int calcularAreaTriangulo(double base, double altura) {
         try {
+
+            return (int) (base * altura /2);
+
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
+    
     }
 
     // Diseñe un algoritmo que calcule el perímetro de un cuadrado.
     public static int calcularPerimetroCuadrado(double lado) {
+
         try {
+            return (int)(lado * 4);
+
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
+        
     }
 
     // Diseñe un algoritmo que calcule el volumen de un cilindro.
     public static int calcularVolumenCilindro(double radio, double altura) {
         try {
+
+            return (int) (Math.PI * Math.pow(radio,2)*altura);
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
+        
     }
 
     // Diseñe un algoritmo que calcule el área del círculo. El radio se pide por teclado.
     public static int calcularAreaCirculo(double radio) {
         try {
+            return (int) (Math.PI * Math.pow(radio,2));
             // Lógica interna
         } catch (Exception e) {
             return -1;
         }
-        return 0;
-    }
-
-    public static void main(String[] args) {
         
     }
+
+    
 }
