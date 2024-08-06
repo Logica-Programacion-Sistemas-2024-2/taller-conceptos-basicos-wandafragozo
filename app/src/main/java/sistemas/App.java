@@ -91,18 +91,19 @@ public class App {
 
         Scanner sc = new Scanner(System.in);
 
-        celsius = sc.nextDouble();
+        //celsius = sc.nextDouble();
         int fahrenheit;
         
         try {
              fahrenheit = (int) (32 + (9.0 / 5.0 * celsius));
 
             // Lógica interna
+            return fahrenheit;
 
         } catch (Exception e) {
             return -1;
         }
-        return (int) fahrenheit;
+        
     }
 
     // Solicitar al usuario ingresar Nro de Días nro de horas nro de minutos y nro segundos y convertir todo a segundos.
@@ -422,3 +423,4 @@ double peso_luna = 0;
 
     
 }
+
